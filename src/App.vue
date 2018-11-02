@@ -1,12 +1,15 @@
 <template>
   <div id="app">
     <div class="moon"></div>
-    <div
-      class="star"
-      v-for="star in totalStars"
-      :key="star"
-      :style="`top: ${getRandomY()}px; left: ${getRandomX()}px;`"
-    ></div>
+      <transition-group name="fade">
+        <div
+          class="star"
+          v-for="star in totalStars"
+          :key="star"
+          :style="`top: ${getRandomY()}px; left: ${getRandomX()}px;`"
+        ></div>
+      </transition-group>
+      <input type="range" v-model.number="totalStars" min="0" max="1000" step="20">
   </div>
 </template>
 
@@ -66,5 +69,18 @@ body {
   right: 10%;
   top: 15%;
   border-radius: 100px;
+}
+
+input {
+    background-color: #fff;
+    position: relative;
+    z-index: 100;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 </style>
